@@ -5,19 +5,20 @@ const connectDB = require("./config/db");
 const router = require("./routes");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
-const path = require("path");
 
 const app = express();
 app.use(express.json());
 
-if (process.env.NODE_ENV !== "production") {
   app.use(
     cors({
       origin: process.env.FRONTEND_URL,
       credentials: true,
     })
   );
-}
+
+  app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
 
 app.use(cookieParser());
 app.use("/api", router);
